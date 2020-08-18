@@ -123,6 +123,7 @@ import TwoStepCaptcha from '@/components/tools/TwoStepCaptcha'
 import { mapActions } from 'vuex'
 import { timeFix } from '@/utils/util'
 import { getSmsCaptcha, get2step } from '@/api/login'
+const QS = require('qs')
 
 export default {
     components: {
@@ -194,7 +195,9 @@ export default {
                     delete loginParams.username
                     loginParams[!state.loginType ? 'email' : 'username'] = values.username
                     loginParams.password = md5(values.password)
-                    Login(loginParams)
+                    //设置参数类型 转换JSON
+                    const params = QS.stringify(loginParams)
+                    Login(params)
                         .then(res => this.loginSuccess(res))
                         .catch(err => this.requestFailed(err))
                         .finally(() => {
