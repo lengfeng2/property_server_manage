@@ -5,6 +5,9 @@ import notification from 'ant-design-vue/es/notification'
 import { VueAxios } from './axios'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 
+// 设置同一session
+axios.defaults.withCredentials = true
+
 // 创建 axios 实例
 const service = axios.create({
     baseURL: process.env.VUE_APP_API_BASE_URL, // api base_url
